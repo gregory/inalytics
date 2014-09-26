@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 gem 'rails', '3.2.19'
 gem 'sequel-rails', '~> 0.9.5'
 gem 'mysql2', '~> 0.3.16'
+
+gem 'rails-assets-angular', '~> 1.2.25'
+gem 'slim'
 
 group :development do
   gem 'pry-rails'

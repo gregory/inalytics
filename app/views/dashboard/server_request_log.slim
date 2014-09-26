@@ -1,0 +1,7 @@
+- content_for(:footer) do
+  = javascript_include_tag 'dashboard'
+
+h1 Server Request Logs
+.container data-ng-app="server_request_log"
+  .row data-ng-controller="urls_controller"
+    span data-ng-bind="List of logs"
