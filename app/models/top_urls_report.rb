@@ -3,8 +3,9 @@ class TopUrlsReport
   Struct.new("UrlReport", :url, :day, :visits) do
   end
 
+  #NOTE: we could cache the results in a table.
   def self.build
-    logs = ServerRequestLog.visits_for_the_last_days
+    logs = ServerRequestLog.visits_for_the_last_days.order(:day, Sequel.desc(:visits))
     reports = logs.map do |log|
       payload = [
         log[:url],

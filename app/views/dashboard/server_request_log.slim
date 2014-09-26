@@ -4,4 +4,10 @@
 h1 Server Request Logs
 .container data-ng-app="server_request_log"
   .row data-ng-controller="urls_controller"
-    span data-ng-bind="List of logs"
+    ul data-ng-repeat='(day, logs) in logs_by_day'
+      li
+        | {{day}}
+      ul data-ng-repeat="log in logs"
+        li
+          | {{log | json}}
+
