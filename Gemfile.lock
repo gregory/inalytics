@@ -78,6 +78,8 @@ GEM
       bundler (~> 1.0)
       railties (= 3.2.19)
     rails-assets-angular (1.2.25)
+    rails-assets-angular-route (1.2.25)
+      rails-assets-angular (= 1.2.25)
     railties (3.2.19)
       actionpack (= 3.2.19)
       activesupport (= 3.2.19)
@@ -129,6 +131,7 @@ DEPENDENCIES
   pry-stack_explorer
   rails (= 3.2.19)
   rails-assets-angular (~> 1.2.25)
+  rails-assets-angular-route (~> 1.2.25)
   sass-rails (~> 3.2.3)
   sequel-rails (~> 0.9.5)
   slim

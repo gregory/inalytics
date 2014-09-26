@@ -9,6 +9,9 @@ class LogGenerator
     http://opensource.org
   )
 
+  #Generate 10 random urls
+  URLS.push((0...10).inject([]){ |array, _| array.push "http://#{Array.new(10) { rand(36).to_s(36) }.join}.apple.com" }).flatten!
+
   # Required Referrers
   REFERRERS = %w(
     http://apple.com
@@ -16,6 +19,9 @@ class LogGenerator
     https://www.apple.com
     http://developer.apple.com
   ).push(nil)
+
+  #Generate 100 random referrers
+  REFERRERS.push((0...100).inject([]){ |array, _| array.push "http://#{Array.new(10) { rand(36).to_s(36) }.join}.com" }).flatten!
 
   # 24 Random times in the day
   TIMES = (0..24).inject([]) do |array, hour|

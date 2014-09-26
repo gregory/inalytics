@@ -17,9 +17,4 @@ class TopUrlsReport
 
     reports.group_by{ |log| log.day }
   end
-
-
-  class UrlReport
-    attr_reader :day, :url
-  end
 end

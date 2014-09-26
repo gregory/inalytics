@@ -3,12 +3,11 @@ angular.module("server_request_log").factory("UrlService", [
 
   function($http){
     var service = {};
-    service.urls = function(fn){
-
-      $http.get('/server_request_logs/top_urls.json')
-        .success(function(data){
-          return fn(data);
-        })
+    service.urls = function(){
+      return $http.get('/server_request_logs/top_urls.json');
+    }
+    service.referrers = function(){
+      return $http.get('/server_request_logs/top_referrers.json');
     }
     return service;
   }

@@ -1,5 +1,4 @@
-angular.module("server_request_log").controller("urls_controller", ['$scope', 'UrlService', function($scope, UrlService){
-  UrlService.urls(function(data){
-    $scope.logs_by_day = data;
-  });
+angular.module("server_request_log").controller("urls_controller", ['$scope', 'urls', 'log_type', function($scope, urls, log_type){
+  $scope.logs_by_day = urls.data;
+  $scope.log_type = log_type;
 }]);

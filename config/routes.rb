@@ -3,6 +3,7 @@ Inalytics::Application.routes.draw do
   resources :server_request_logs, only: [] do
     collection do
       get :top_urls
+      get :top_referrers
     end
   end
 end

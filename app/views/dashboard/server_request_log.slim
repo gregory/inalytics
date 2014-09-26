@@ -2,12 +2,20 @@
   = javascript_include_tag 'dashboard'
 
 h1 Server Request Logs
+nav
+  ul
+    li
+      a href='/#/' top urls
+    li
+      a href='/#/referrers' top referrers
 .container data-ng-app="server_request_log"
-  .row data-ng-controller="urls_controller"
+  script type='text/ng-template' id="urls_template.html"
+    h2 Top {{log_type}}
     ul data-ng-repeat='(day, logs) in logs_by_day'
       li
         | {{day}}
       ul data-ng-repeat="log in logs"
         li
           | {{log | json}}
+  div data-ng-view=""
 
