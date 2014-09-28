@@ -6,7 +6,7 @@ class TopReferrerReport
   }
 
   unless defined?(Struct::UrlLogs)
-    Struct.new("UrlLogs", :day, :url, :logs) do
+    Struct.new("UrlReport", :url, :logs) do
       # Total visits for this particular url
       def visits
         @visits ||= logs.inject(0) { |sum, log| sum + log[:visits] }
@@ -14,7 +14,7 @@ class TopReferrerReport
 
       # Top referrers for this particular url
       def referrers
-        logs.take(DEFAUTLS[:top_x_referrers]).map{ |log| Struct::Referrer.new(log.referrer, log[:visits]) }
+        logs.take(DEFAUTLS[:top_x_referrers]).map{ |log| Struct::ReferrerReport.new(log.referrer, log[:visits]) }
       end
 
       def as_json(*args)
@@ -25,13 +25,30 @@ class TopReferrerReport
         }
       end
 
-      Struct.new("Referrer", :url, :visits)
+      Struct.new("ReferrerReport", :url, :visits)
     end
   end
 
   def self.build
-    logs_with_referrers = self.new.top_referrers.to_a.group_by{ |row| [row[:day], row[:url]] }
-    logs_with_referrers.map { |(day, url), logs| Struct::UrlLogs.new(day, url, logs) }.group_by(&:day)
+    #Group logs by day
+    logs_with_referrers = self.new.top_referrers.to_a.group_by{ |row| row[:day] }
+
+    reports_by_day = logs_with_referrers.map do |day, logs|
+      [day, self.reports_for_logs(logs)]
+    end
+
+    Hash[reports_by_day]
+  end
+
+  def self.reports_for_logs(logs)
+    reports = logs.group_by(&:url).map do |url, url_logs|
+      # For each url, create a report
+      Struct::UrlReport.new(url, url_logs)
+    end
+
+    sorted_reports = reports.sort!{|a,b| a.visits <=> b.visits}
+
+    sorted_reports.take(DEFAUTLS[:top_x_urls])
   end
 
   def top_referrers
