@@ -15,7 +15,7 @@ class ServerRequestLog < Sequel::Model
 
   def self.visits_for_the_last_days(opts={})
     last_x_days = opts.fetch(:last_x_days) { 5 }
-    visits.having { [day >= last_x_days.days.ago.to_date, day < 1.day.ago.to_date] }
+    visits.having { [day >= last_x_days.days.ago.to_date, day <= 1.day.ago.to_date] }
   end
 
   def self.referrer_visits
@@ -30,6 +30,6 @@ class ServerRequestLog < Sequel::Model
 
   def self.referrer_visits_for_the_last_days(opts={})
     last_x_days = opts.fetch(:last_x_days) { 5 }
-    referrer_visits.having { [day >= last_x_days.days.ago.to_date, day < 1.day.ago.to_date] }
+    referrer_visits.having { [day >= last_x_days.days.ago.to_date, day <= 1.day.ago.to_date] }
   end
 end
